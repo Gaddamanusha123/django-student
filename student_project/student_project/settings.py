@@ -43,6 +43,12 @@ INSTALLED_APPS = [
 
 
 ]
+
+UNFOLD = {
+    "SITE_TITLE": "Student Admin",
+    "SITE_HEADER": "Student Management System",
+    "SITE_SYMBOL": "school",
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -3,38 +3,35 @@ from .models import Student
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-
-    # List page columns
     def get_list_display(self, request):
         if request.user.is_superuser:
             return ('id', 'name', 'age', 'course', 'roll_number')
         return ('id', 'name', 'course')
 
-    # Form fields
     def get_fields(self, request, obj=None):
         if request.user.is_superuser:
             return ('name', 'age', 'course', 'roll_number')
-        return ('name', 'course')   # ✅ keep name visible
+        return ('name', 'course')   
 
-    # Readonly fields
+
     def get_readonly_fields(self, request, obj=None):
         if request.user.is_superuser:
             return ()
-        return ()   # ✅ allow editing name (remove readonly)
+        return ()   
 
-    # Delete permission
+    
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
 
-    # Add permission
+
     def has_add_permission(self, request):
         return True
 
-    # Change permission
+
     def has_change_permission(self, request, obj=None):
         return True
 
-    # ✅ IMPORTANT FIX (auto handle missing fields)
+    
     def save_model(self, request, obj, form, change):
         if not obj.age:
             obj.age = 0   # default value
